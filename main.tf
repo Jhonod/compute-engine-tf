@@ -4,28 +4,12 @@ provider "google" {
   zone    = var.zone
 }
 
-resource "google_compute_network" "vpc_network" {
-  name                    = "gce-network"
-  auto_create_subnetworks = true
-}
-
-resource "google_compute_firewall" "ssh" {
-  name    = "allow-ssh"
-  network = google_compute_network.vpc_network.name
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["ssh"]
-}
-
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "vm_instance" {
   name         = var.instance_name
   machine_type = var.machine_type
   zone         = var.zone
+
+  tags = ["allow-ssh"]
 
   boot_disk {
     initialize_params {
@@ -35,14 +19,12 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    network       = google_compute_network.vpc_network.name
-    access_config {} # public IP
+    network       = "default"
+    access_config {}
   }
 
-  tags = ["ssh"]
-
   metadata = {
-    ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
+    ssh-keys = "${var.ssh_user}:${var.ssh_public_key}"
   }
 
   service_account {

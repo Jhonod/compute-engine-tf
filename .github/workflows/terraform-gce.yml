@@ -8,7 +8,7 @@ on:
 env:
   TF_VAR_project_id: arboreal-cosmos-440011-r8
   TF_VAR_service_account_email: "akm99-119@arboreal-cosmos-440011-r8.iam.gserviceaccount.com"
-
+  TF_VAR_ssh_public_key: ${{ secrets.AKM_SSH }}
 jobs:
   terraform:
     name: Terraform Provisioning

@@ -9,12 +9,11 @@ variable "instance_name" {
   default = "ci-vm"
 }
 variable "machine_type" {
-  default = "e2-micro"
+  default = "e2-medium"
 }
 variable "ssh_user" {
   default = "ubuntu"
 }
-variable "public_key_path" {
-  default = "~/.ssh/id_rsa.pub"
-}
+variable "ssh_public_key" {}
 variable "service_account_email" {}
+
