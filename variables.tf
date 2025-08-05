@@ -6,13 +6,13 @@ variable "zone" {
   default = "asia-southeast2-a"
 }
 variable "instance_name" {
-  default = "ci-vm"
+  default = "netbox-deploy"
 }
 variable "machine_type" {
   default = "e2-medium"
 }
 variable "ssh_user" {
-  default = "ubuntu"
+  default = "akm"
 }
 variable "ssh_public_key" {}
 variable "service_account_email" {}
